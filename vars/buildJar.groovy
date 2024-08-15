@@ -1,6 +1,6 @@
 #!/user/bin/env groovy
 
 def call() {
-  echo 'bilding the application...'
+  echo "building the application for branch $BRANCH_NAME"
   sh  'mvn package'
 }
