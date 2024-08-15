@@ -1,3 +1,5 @@
+def gv
+
 pipeline {
     agent any
     tools {
@@ -21,7 +23,7 @@ pipeline {
             steps {
                 script {
                     echo 'building the application...'
-                // sh 'mvn clean package'
+                    sh 'mvn clean package'
                 }
             }
         }
@@ -29,13 +31,14 @@ pipeline {
             steps {
                 script {
                     echo 'building the docker image...'
-                    // withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]){
-                    //     sh "docker build -t nanatwn/demo-app:${IMAGE_NAME} ."
-                    //     sh 'echo $PASS | docker login -u $USER --password-stdin'
-                    //     sh "docker push nanatwn/demo-app:${IMAGE_NAME}"
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-asfucuhara', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh 'docker build -t asfucu/demo-app:jma-2.0 .'
+                        sh 'echo $PASS | docker login -u $USER --password-stdin'
+                        sh 'docker push asfucu/demo-app:jma-2.0'
                     }
                 }
             }
+        }
         // stage('deploy') {
         //     steps {
         //         script {
