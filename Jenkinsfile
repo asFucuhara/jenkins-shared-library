@@ -7,8 +7,10 @@ pipeline {
     }
     stages {
         stage('Init...') {
-            script {
-                gv = load "script.groovy"
+            steps {
+                script {
+                    gv = load "script.groovy"
+                }
             }
         }
         // stage('increment version') {
