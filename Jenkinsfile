@@ -6,7 +6,7 @@ pipeline {
         maven 'maven-3.9'
     }
     stages {
-        stage ('Init...') {
+        stage('Init...') {
             script {
                 gv = load "script.groovy"
             }
@@ -36,10 +36,10 @@ pipeline {
                 script {
                     gv.buildImage()
                     echo 'building the docker image...'
-                    }
                 }
             }
         }
+    }
         // stage('deploy') {
         //     steps {
         //         script {
@@ -66,13 +66,5 @@ pipeline {
         //         }
         //     }
         // }
-        }
-    post {
-        always: {
-        //
-        }
-        failure: {
-        //
-        }
-    }
-    }
+        // }
+}
