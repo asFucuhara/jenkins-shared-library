@@ -6,6 +6,11 @@ pipeline {
         maven 'maven-3.9'
     }
     stages {
+        stage ('Init...') {
+            script {
+                gv = load "script.groovy"
+            }
+        }
         // stage('increment version') {
         //     steps {
         //         script {
@@ -22,19 +27,15 @@ pipeline {
         stage('build app') {
             steps {
                 script {
-                    echo 'building the application...'
-                    sh 'mvn clean package'
+                    gv.buildJar()
                 }
             }
         }
         stage('build image') {
             steps {
                 script {
+                    gv.buildImage()
                     echo 'building the docker image...'
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-asfucuhara', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                        sh 'docker build -t asfucu/demo-app:jma-2.0 .'
-                        sh 'echo $PASS | docker login -u $USER --password-stdin'
-                        sh 'docker push asfucu/demo-app:jma-2.0'
                     }
                 }
             }
